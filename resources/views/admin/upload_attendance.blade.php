@@ -16,6 +16,7 @@
 
 @section('button')
     <a href="#addnew" data-toggle="modal" class="btn btn-success btn-sm btn-flat"><i class="mdi mdi-plus mr-2"></i>Add New Upload</a>
+    <a href="{{ route('attendance_export') }}" class="btn btn-info btn-sm btn-flat"><i class="fa fa-download mr-2"></i>Download Template</a>
 @endsection
 
 @section('content')

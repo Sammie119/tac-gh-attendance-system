@@ -17,8 +17,15 @@ class AttendanceController extends Controller
     public function index(Request $request)
     {
         if(!empty($request->date_from)){
+            if($request->staff_name === "ALL"){
+                $data['attendances'] = AttendanceRecord::whereBetween('att_date', [$request->date_from, $request->date_to])->orderByDesc('att_date')->get();
+            }
+            else{
+                $employee_id = getEmployeeID($request->staff_name);
+                $data['attendances'] = AttendanceRecord::whereBetween('att_date', [$request->date_from, $request->date_to])->orderByDesc('att_date')
+                                    ->where('employee_id', $employee_id)->get();
+            }
             // dd($request->all());
-            $data['attendances'] = AttendanceRecord::whereBetween('att_date', [$request->date_from, $request->date_to])->orderByDesc('att_date')->get();
         } else {
             $data['attendances'] = [];
         }

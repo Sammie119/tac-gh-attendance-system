@@ -34,11 +34,14 @@ Route::group(['middleware' => ['auth', 'Role'], 'roles' => ['admin']], function 
     Route::resource('/schedule', '\App\Http\Controllers\ScheduleController');
 
     Route::get('/check', '\App\Http\Controllers\CheckController@index')->name('check');
+    Route::get('/attendance_export', '\App\Http\Controllers\CheckController@exportAttendanceTemplate')->name('attendance_export');
     Route::post('/upload_attendance', '\App\Http\Controllers\CheckController@uploadAttendanceRecord')->name('upload_attendance');
     Route::put('/update_attendance/{id}', '\App\Http\Controllers\CheckController@updateAttendanceRecord')->name('update_attendance');
     Route::delete('/attendance_records_delete/{id}', '\App\Http\Controllers\CheckController@attendanceRecordsDelete')->name('attendance_records_delete');
     Route::get('/sheet-report', '\App\Http\Controllers\CheckController@sheetReport')->name('sheet-report');
     Route::post('check-store','\App\Http\Controllers\CheckController@CheckStore')->name('check_store');
+
+    Route::resource('/excuses', '\App\Http\Controllers\ExcuseController');
 
     // Fingerprint Devices
     Route::resource('/finger_device', '\App\Http\Controllers\BiometricDeviceController');

@@ -56,18 +56,26 @@
                                             <td>{{ $attendance->employee->schedules->first()->slug }}</td>
                                             <td>
                                                 {{ $attendance->check_in_time }} <br>
-                                                @if ($helper->getLateOrIntime($attendance->check_in_time, $attendance->employee->schedules->first()->time_in, 'late'))
-                                                    <span class="badge badge-success badge-pill">Before</span>
+                                                @if (getExcuseDateForEmployee($attendance->att_date, $attendance->employee->id))
+                                                    <span class="badge badge-primary badge-pill">Excuse</span>
                                                 @else
-                                                    <span class="badge badge-danger badge-pill">Late</span>
+                                                    @if ($helper->getLateOrIntime($attendance->check_in_time, $attendance->employee->schedules->first()->time_in, 'late'))
+                                                        <span class="badge badge-success badge-pill">Before</span>
+                                                    @else
+                                                        <span class="badge badge-danger badge-pill">Late</span>
+                                                    @endif
                                                 @endif
                                             </td>
                                             <td>
                                                 {{ $attendance->check_out_time }} <br>
-                                                @if ($helper->getLateOrIntime($attendance->check_out_time, $attendance->employee->schedules->first()->time_out, 'in_time'))
-                                                    <span class="badge badge-success badge-pill">On/Over</span>
+                                                @if (getExcuseDateForEmployee($attendance->att_date, $attendance->employee->id))
+                                                    <span class="badge badge-primary badge-pill">Excuse</span>
                                                 @else
-                                                    <span class="badge badge-danger badge-pill">Before</span>
+                                                    @if ($helper->getLateOrIntime($attendance->check_out_time, $attendance->employee->schedules->first()->time_out, 'in_time'))
+                                                        <span class="badge badge-success badge-pill">On/Over</span>
+                                                    @else
+                                                        <span class="badge badge-danger badge-pill">Before</span>
+                                                    @endif
                                                 @endif
                                             </td>
                                             <td>{{ $attendance->total_hours }}</td>

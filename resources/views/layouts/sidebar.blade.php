@@ -5,7 +5,7 @@
                     <!--- Sidemenu -->
 					<!-- Log on to codeastro.com for more projects! -->
                     <div id="sidebar-menu">
-                        
+
                         <!-- Left Menu Start -->
                         <ul class="metismenu" id="side-menu">
                             <li class="menu-title">Main</li>
@@ -14,7 +14,7 @@
                                     <i class="ti-home"></i> <span> Dashboard </span>
                                 </a>
                             </li>
-                            
+
 
                             <li>
                             <a href="/employees" class="waves-effect {{ request()->is("employees") || request()->is("/employees/*") ? "mm active" : "" }}"><i class="ti-user"></i><span> Employees </span></a>
@@ -22,7 +22,7 @@
                                     <li>
                                         <i class="dripicons-view-apps"></i><span>Employees List</span></a>
                                     </li>
-                                   
+
                                 </ul> -->
                             </li>
 							<!-- Log on to codeastro.com for more projects! -->
@@ -47,6 +47,12 @@
                             <li class="">
                                 <a href="/attendance" class="waves-effect {{ request()->is("attendance") || request()->is("attendance/*") ? "mm active" : "" }}">
                                     <i class="ti-calendar"></i> <span> Attendance Logs </span>
+                                </a>
+                            </li>
+
+                            <li class="">
+                                <a href="/excuses" class="waves-effect {{ request()->is("excuses") || request()->is("excuses/*") ? "mm active" : "" }}">
+                                    <i class="ti-notepad"></i> <span> Excuses </span>
                                 </a>
                             </li>
                             <!-- <li class="">

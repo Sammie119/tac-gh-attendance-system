@@ -31,6 +31,20 @@
                                     <input type="date" class="form-control" id="date_to" name="date_to" required />
                                 </div>
                             </div>
+
+                            <div class="col-12">
+                                <div class="form-group">
+                                    <label for="staff_name">Staff Name</label>
+                                    <input type="text" list="staffList" class="form-control mb-3" name="staff_name" required>
+
+                                    <datalist id="staffList">
+                                        <option selected value="ALL">
+                                        @foreach (\App\Models\Employee::orderBy('name')->get() as $staff)
+                                            <option value="{{ $staff->name }}">
+                                        @endforeach
+                                    </datalist>
+                                </div>
+                            </div>
                         </div>
 
                         <div class="form-group">
@@ -107,6 +121,19 @@
                                         }
                                         ?>
                                     </select>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="form-group">
+                                    <label for="staff_name">Staff Name</label>
+                                    <input type="text" list="staffList" class="form-control mb-3" name="staff_name" required>
+
+                                    <datalist id="staffList">
+                                        <option selected value="ALL">
+                                        @foreach (\App\Models\Employee::orderBy('name')->get() as $staff)
+                                            <option value="{{ $staff->name }}">
+                                        @endforeach
+                                    </datalist>
                                 </div>
                             </div>
                         </div>

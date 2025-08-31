@@ -24,8 +24,15 @@
         </div>
         <div class="card-body">
             <div class="table-responsive">
+                <b>Legend:</b>
+                <nav class="nav">
+                    <a class="nav-link disabled">Excuse: <i class="fa fa-check text-primary"></i></a>
+                    <a class="nav-link disabled">Before/Over/On-Time: <i class="fa fa-check text-success"></i></a>
+                    <a class="nav-link disabled">Late/Early: <i class="fa fa-check text-danger"></i></a>
+                    <a class="nav-link disabled">Absent: <i class="fas fa-times text-danger"></i></a>
+                </nav>
                 <table class="table table-md table-hover" id="printTable">
-                <thead class="thead-dark">
+                    <thead class="thead-dark">
                         <tr >
                             <th>ID</th>
                             <th>Employee</th>
@@ -59,26 +66,34 @@
                                     @endphp
                                     <td>
                                         <div class="form-check form-check-inline ">
-                                            @if (isset($check->check_in_time))
-                                                 @if ($helper->getLateOrIntime($check->check_in_time, $check->employee->schedules->first()->time_in, 'late'))
-                                                    <i class="fa fa-check text-success"></i>
-                                                 @else
-                                                    <i class="fa fa-check text-danger"></i>
-                                                 @endif
+                                            @if (getExcuseDateForEmployee($date, $employee->id))
+                                                    <i class="fa fa-check text-primary"></i>
                                             @else
-                                                <i class="fas fa-times text-danger"></i>
+                                                @if (isset($check->check_in_time))
+                                                    @if ($helper->getLateOrIntime($check->check_in_time, $check->employee->schedules->first()->time_in, 'late'))
+                                                        <i class="fa fa-check text-success"></i>
+                                                    @else
+                                                        <i class="fa fa-check text-danger"></i>
+                                                    @endif
+                                                @else
+                                                    <i class="fas fa-times text-danger"></i>
+                                                @endif
                                             @endif
                                         </div>
                                         <div class="form-check form-check-inline">
-                                            @if (isset($check->check_out_time))
-                                                @if ($helper->getLateOrIntime($check->check_out_time, $check->employee->schedules->first()->time_out, 'in_time'))
-                                                    <i class="fa fa-check text-success"></i>
-                                                @else
-                                                    <i class="fa fa-check text-danger"></i>
-                                                @endif
-
+                                            @if (getExcuseDateForEmployee($date, $employee->id))
+                                                    <i class="fa fa-check text-primary"></i>
                                             @else
-                                                <i class="fas fa-times text-danger"></i>
+                                                @if (isset($check->check_out_time))
+                                                    @if ($helper->getLateOrIntime($check->check_out_time, $check->employee->schedules->first()->time_out, 'in_time'))
+                                                        <i class="fa fa-check text-success"></i>
+                                                    @else
+                                                        <i class="fa fa-check text-danger"></i>
+                                                    @endif
+
+                                                @else
+                                                    <i class="fas fa-times text-danger"></i>
+                                                @endif
                                             @endif
                                         </div>
                                     </td>

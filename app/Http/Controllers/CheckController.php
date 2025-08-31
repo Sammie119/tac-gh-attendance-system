@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use DateTime;
 use App\Models\Leave;
 use App\Models\Employee;
 use App\Models\Schedule;
@@ -9,6 +10,7 @@ use App\Models\Attendance;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use App\Models\AttendanceRecord;
+use App\Exports\AttendanceExport;
 use App\Imports\AttendanceImport;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Date;
@@ -96,13 +98,24 @@ class CheckController extends Controller
         $data['header'] = $today->monthName. ', '. $today->year;
 
         if(!empty($request->month)){
-            $data['employees'] = Employee::all();
+            if($request->staff_name === "ALL"){
+                $data['employees'] = Employee::all();
+            }
+            else{
+                $employee_id = getEmployeeID($request->staff_name);
+                $data['employees'] = Employee::where('id', $employee_id)->get();
+            }
         } else {
             $data['employees'] = [];
         }
 
         return view('admin.sheet-report')->with($data);
 
+    }
+
+    public function exportAttendanceTemplate()
+    {
+        return Excel::download(new AttendanceExport(), 'attendance_template.xlsx');
     }
 
     public function uploadAttendanceRecord(Request $request)
