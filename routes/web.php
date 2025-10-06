@@ -42,6 +42,7 @@ Route::group(['middleware' => ['auth', 'Role'], 'roles' => ['admin']], function 
     Route::post('check-store','\App\Http\Controllers\CheckController@CheckStore')->name('check_store');
 
     Route::resource('/excuses', '\App\Http\Controllers\ExcuseController');
+    Route::get('/other_report', '\App\Http\Controllers\OtherReportController@otherReport')->name('other_report');
 
     // Fingerprint Devices
     Route::resource('/finger_device', '\App\Http\Controllers\BiometricDeviceController');

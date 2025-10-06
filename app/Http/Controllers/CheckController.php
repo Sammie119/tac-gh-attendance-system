@@ -12,6 +12,7 @@ use Illuminate\Support\Carbon;
 use App\Models\AttendanceRecord;
 use App\Exports\AttendanceExport;
 use App\Imports\AttendanceImport;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Date;
 use Maatwebsite\Excel\Facades\Excel;
@@ -98,8 +99,23 @@ class CheckController extends Controller
         $data['header'] = $today->monthName. ', '. $today->year;
 
         if(!empty($request->month)){
-            if($request->staff_name === "ALL"){
+
+            if($request->unit === "ALL" && $request->staff_name === "ALL"){
                 $data['employees'] = Employee::all();
+            }
+            elseif(is_numeric($request->unit) && $request->staff_name === "ALL"){
+                $data['employees'] = Employee::join('schedule_employees', 'employees.id', '=', 'schedule_employees.emp_id')
+                        ->select('employees.*')
+                        ->where('schedule_employees.schedule_id', '=', $request->unit)
+                        ->get();
+
+                // DB::select("SELECT e.* FROM employees e, schedule_employees s
+                //         WHERE e.id = s.emp_id
+                //         AND s.schedule_id = $request->unit");
+            }
+            elseif($request->unit === "ALL" && strlen($request->staff_name) > 3){
+                $employee_id = getEmployeeID($request->staff_name);
+                $data['employees'] = Employee::where('id', $employee_id)->get();
             }
             else{
                 $employee_id = getEmployeeID($request->staff_name);

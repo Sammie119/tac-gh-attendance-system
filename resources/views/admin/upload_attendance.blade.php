@@ -47,7 +47,8 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach( $attendance as $key => $record)
+                            <?php $key = 0; ?>
+                            @foreach( $attendance as $record)
 
                             <tr>
                                 <td>{{ ++$key }}</td>

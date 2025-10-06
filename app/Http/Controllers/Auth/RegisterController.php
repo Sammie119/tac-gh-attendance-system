@@ -65,6 +65,7 @@ class RegisterController extends Controller
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
+            'is_admin' => ['required'],
         ]);
     }
 
@@ -74,6 +75,7 @@ class RegisterController extends Controller
         User::create([
             'name' => $request['name'],
             'email' => $request['email'],
+            'is_admin' => $request['is_admin'],
             'password' => Hash::make($request['password']),
         ]);
 
@@ -92,6 +94,7 @@ class RegisterController extends Controller
         User::find($request->id)->update([
             'name' => $request['name'],
             'email' => $request['email'],
+            'is_admin' => $request['is_admin'],
             'password' => Hash::make($request['password']),
         ]);
 

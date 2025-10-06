@@ -43,6 +43,25 @@
                                 @enderror
                             </div>
                         </div>
+
+                        <div class="form-group row">
+                            <label for="is_admin" class="col-md-4 col-form-label text-md-right">{{ __('User Type') }}</label>
+
+                            <div class="col-md-6">
+                                <select class="form-control @error('is_admin') is-invalid @enderror" name="is_admin" required>
+                                    <option value="" selected disabled>--Select--</option>
+                                    <option value="1">Admin</option>
+                                    <option value="0">User</option>
+                                </select>
+
+                                @error('is_admin')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                        </div>
+
 						<!-- Log on to codeastro.com for more projects! -->
                         <div class="form-group row">
                             <label for="password" class="col-md-4 col-form-label text-md-right">{{ __('Password') }}</label>

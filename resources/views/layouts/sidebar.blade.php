@@ -26,18 +26,22 @@
                                 </ul> -->
                             </li>
 							<!-- Log on to codeastro.com for more projects! -->
-                            <li class="menu-title">Management</li>
 
-                            <li class="">
-                                <a href="/schedule" class="waves-effect {{ request()->is("schedule") || request()->is("schedule/*") ? "mm active" : "" }}">
-                                    <i class="ti-time"></i> <span> Schedule </span>
-                                </a>
-                            </li>
-                            <li class="">
-                                <a href="/check" class="waves-effect {{ request()->is("check") || request()->is("check/*") ? "mm active" : "" }}">
-                                    <i class="dripicons-to-do"></i> <span> Attendance Sheet </span>
-                                </a>
-                            </li>
+                            @if(Auth()->user()->is_admin)
+                                <li class="menu-title">Management</li>
+                                <li class="">
+                                    <a href="/schedule" class="waves-effect {{ request()->is("schedule") || request()->is("schedule/*") ? "mm active" : "" }}">
+                                        <i class="ti-time"></i> <span> Schedule </span>
+                                    </a>
+                                </li>
+                                <li class="">
+                                    <a href="/check" class="waves-effect {{ request()->is("check") || request()->is("check/*") ? "mm active" : "" }}">
+                                        <i class="dripicons-to-do"></i> <span> Attendance Sheet </span>
+                                    </a>
+                                </li>
+                            @endif
+
+                            <li class="menu-title">Reports</li>
                             <li class="">
                                 <a href="/sheet-report" class="waves-effect {{ request()->is("sheet-report") || request()->is("sheet-report/*") ? "mm active" : "" }}">
                                     <i class="dripicons-to-do"></i> <span> Sheet Report </span>
@@ -55,6 +59,11 @@
                                     <i class="ti-notepad"></i> <span> Excuses </span>
                                 </a>
                             </li>
+                            <li class="">
+                                <a href="/other_report" class="waves-effect {{ request()->is("other_report") || request()->is("other_report/*") ? "mm active" : "" }}">
+                                    <i class="ti-notepad"></i> <span> Others Report </span>
+                                </a>
+                            </li>
                             <!-- <li class="">
                                 <a href="/latetime" class="waves-effect {{ request()->is("latetime") || request()->is("latetime/*") ? "mm active" : "" }}">
                                     <i class="dripicons-warning"></i><span> Late Time </span>
@@ -70,13 +79,14 @@
                                     <i class="dripicons-alarm"></i> <span> Over Time </span>
                                 </a>
                             </li> -->
-                            <li class="menu-title">Tools</li>
-                            <li class="">
-                                <a href="{{ route("finger_device.index") }}" class="waves-effect {{ request()->is("finger_device") || request()->is("finger_device/*") ? "mm active" : "" }}">
-                                    <i class="fas fa-fingerprint"></i> <span> Biometric Device </span>
-                                </a>
-                            </li>
-
+                            @if(Auth()->user()->is_admin)
+                                <li class="menu-title">Tools</li>
+                                <li class="">
+                                    <a href="{{ route("finger_device.index") }}" class="waves-effect {{ request()->is("finger_device") || request()->is("finger_device/*") ? "mm active" : "" }}">
+                                        <i class="fas fa-fingerprint"></i> <span> Biometric Device </span>
+                                    </a>
+                                </li>
+                            @endif
                         </ul>
 						<!-- Log on to codeastro.com for more projects! -->
                     </div>

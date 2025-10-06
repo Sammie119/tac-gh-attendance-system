@@ -43,18 +43,18 @@
                             @foreach ($dates as $date)
                                 <th style="">{{ $date }}</th>
                             @endforeach
-
+                            <th>Count</th>
                         </tr>
                     </thead>
 
                     <tbody>
                         @foreach ($employees as $employee)
                             <input type="hidden" name="emp_id" value="{{ $employee->id }}">
+                            <?php $count = 0; ?>
                             <tr>
                                 <td>{{ $employee->staff_id }}</td>
                                 <td>{{ $employee->name }}</td>
                                 <td>{{ $employee->position }}</td>
-                                <!-- <td>{{ $employee->id }}</td> -->
 								<!-- Log on to codeastro.com for more projects! -->
                                 {{-- @for ($i = 1; $i < $today->daysInMonth + 1; ++$i) --}}
                                 @foreach ($dates as $date)
@@ -63,6 +63,8 @@
                                             ->where('employee_id', $employee->id)
                                             ->where('att_date', $date)
                                             ->first();
+
+                                        if($check) $count++;
                                     @endphp
                                     <td>
                                         <div class="form-check form-check-inline ">
@@ -99,6 +101,7 @@
                                     </td>
                                 @endforeach
                                 {{-- @endfor --}}
+                                <td>{{ $count }}</td>
                             </tr>
                         @endforeach
 

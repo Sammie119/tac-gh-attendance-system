@@ -65,22 +65,38 @@ class AttendanceImport implements ToModel,WithHeadingRow, WithValidation
 
     public function model(array $row)
     {
-        $forSorting = date('YmdHis');
+        $forSorting = date('YmdHi').'01';
 
-        return new AttendanceRecord([
+        return AttendanceRecord::firstOrCreate([
             'employee_id' => $this->getEmployeeID($row['employee_id']),
-            'description' => $this->description,
-            'upload_date' => $this->upload_date,
             'att_date' => $this->dateConvertor($row['att_date']),
             'att_weekday' => $row['att_weekday'],
             'check_in_time' => $this->timeConvertor($row['check_in_time']),
             'check_out_time' => $this->timeConvertor($row['check_out_time']),
+        ],[
+            'description' => $this->description,
+            'upload_date' => $this->upload_date,
             'total_hours' => $this->getTotalHours($this->timeConvertor($row['check_in_time']), $this->timeConvertor($row['check_out_time'])),
             'location' => $row['location'],
             'for_sorting' => $forSorting,
             'created_by' => Auth()->user()->id,
             'updated_by' => Auth()->user()->id,
         ]);
+
+        // return new AttendanceRecord([
+        //     'employee_id' => $this->getEmployeeID($row['employee_id']),
+        //     'description' => $this->description,
+        //     'upload_date' => $this->upload_date,
+        //     'att_date' => $this->dateConvertor($row['att_date']),
+        //     'att_weekday' => $row['att_weekday'],
+        //     'check_in_time' => $this->timeConvertor($row['check_in_time']),
+        //     'check_out_time' => $this->timeConvertor($row['check_out_time']),
+        //     'total_hours' => $this->getTotalHours($this->timeConvertor($row['check_in_time']), $this->timeConvertor($row['check_out_time'])),
+        //     'location' => $row['location'],
+        //     'for_sorting' => $forSorting,
+        //     'created_by' => Auth()->user()->id,
+        //     'updated_by' => Auth()->user()->id,
+        // ]);
     }
 
     /**

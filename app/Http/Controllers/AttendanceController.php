@@ -6,10 +6,11 @@ use DateTime;
 use App\Models\Employee;
 use App\Models\Latetime;
 use App\Models\Attendance;
+use Illuminate\Http\Request;
 use App\Models\AttendanceRecord;
+use Illuminate\Support\Facades\DB;
 use App\Http\Requests\AttendanceEmp;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Http\Request;
 
 class AttendanceController extends Controller
 {
@@ -17,8 +18,21 @@ class AttendanceController extends Controller
     public function index(Request $request)
     {
         if(!empty($request->date_from)){
-            if($request->staff_name === "ALL"){
+            if($request->unit === "ALL" && $request->staff_name === "ALL"){
                 $data['attendances'] = AttendanceRecord::whereBetween('att_date', [$request->date_from, $request->date_to])->orderByDesc('att_date')->get();
+            }
+            elseif(is_numeric($request->unit) && $request->staff_name === "ALL"){
+                $data['attendances'] = AttendanceRecord::
+                        join('schedule_employees', 'attendance_records.employee_id', '=', 'schedule_employees.emp_id')
+                        ->select('attendance_records.*')
+                        ->where('schedule_employees.schedule_id', '=', $request->unit)
+                        ->whereBetween('att_date', [$request->date_from, $request->date_to])->orderByDesc('att_date')
+                        ->get();
+            }
+            elseif($request->unit === "ALL" && strlen($request->staff_name) > 3){
+                $employee_id = getEmployeeID($request->staff_name);
+                $data['attendances'] = AttendanceRecord::whereBetween('att_date', [$request->date_from, $request->date_to])->orderByDesc('att_date')
+                                    ->where('employee_id', $employee_id)->get();
             }
             else{
                 $employee_id = getEmployeeID($request->staff_name);

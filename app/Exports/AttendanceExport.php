@@ -23,7 +23,7 @@ class AttendanceExport implements FromCollection, WithHeadings, WithStyles
                 'check_out_time',
                 'total_hours',
                 'location',
-        )->limit(0)->get();
+        )->limit(2)->get();
 //        return User::select("id", "name", "email")->get();
     }
 
