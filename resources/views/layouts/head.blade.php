@@ -1,6 +1,6 @@
 <!-- App favicon -->
-<link rel="shortcut icon" href="{{ URL::asset('assets/images/') }}">
-<meta name="viewport" content="width=device-width, initial-scale=1">      
+<link rel="shortcut icon" href="{{ URL::asset('assets/images/profile-icon.png') }}">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 @yield('css')
 <!-- Log on to codeastro.com for more projects! -->
  <!-- App css -->

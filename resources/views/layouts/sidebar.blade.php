@@ -26,9 +26,8 @@
                                 </ul> -->
                             </li>
 							<!-- Log on to codeastro.com for more projects! -->
-
+                            <li class="menu-title">Management</li>
                             @if(Auth()->user()->is_admin)
-                                <li class="menu-title">Management</li>
                                 <li class="">
                                     <a href="/schedule" class="waves-effect {{ request()->is("schedule") || request()->is("schedule/*") ? "mm active" : "" }}">
                                         <i class="ti-time"></i> <span> Schedule </span>
@@ -40,6 +39,11 @@
                                     </a>
                                 </li>
                             @endif
+                            <li class="">
+                                <a href="/excuses" class="waves-effect {{ request()->is("excuses") || request()->is("excuses/*") ? "mm active" : "" }}">
+                                    <i class="ti-notepad"></i> <span> Excuses </span>
+                                </a>
+                            </li>
 
                             <li class="menu-title">Reports</li>
                             <li class="">
@@ -54,11 +58,6 @@
                                 </a>
                             </li>
 
-                            <li class="">
-                                <a href="/excuses" class="waves-effect {{ request()->is("excuses") || request()->is("excuses/*") ? "mm active" : "" }}">
-                                    <i class="ti-notepad"></i> <span> Excuses </span>
-                                </a>
-                            </li>
                             <li class="">
                                 <a href="/other_report" class="waves-effect {{ request()->is("other_report") || request()->is("other_report/*") ? "mm active" : "" }}">
                                     <i class="ti-notepad"></i> <span> Others Report </span>
